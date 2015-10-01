@@ -5,7 +5,6 @@ Documentation
 ==========
 
 Configuration
-==========
 
 # app/config/config.yml
 sonata_admin:
