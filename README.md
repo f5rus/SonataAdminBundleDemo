@@ -28,3 +28,64 @@ services:
         calls:
             - [ setLabelTranslatorStrategy, ["@sonata.admin.label.strategy.underscore"]]
 ```
+Создание child admins
+
+```
+services:
+    app.admin.post:
+        class: AppBundle\Admin\PostAdmin
+        arguments: [~, AppBundle\Entity\Post, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Post }
+
+        calls:
+            - [ addChild, ["@app.admin.comment"]]
+
+    app.admin.comment:
+        class: AppBundle\Admin\CommentAdmin
+        arguments: [~, AppBundle\Entity\Comment, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Comment }
+```
+
+```
+<?php
+
+namespace AppBundle\Admin;
+
+use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
+
+class CommentAdmin extends Admin
+{
+    protected $parentAssociationMapping = 'post';
+```
+
+```
+ protected function configureListFields(ListMapper $listMapper)
+    {
+        $listMapper
+            ->add('id')
+            ->add('title')
+            ->add('body')
+            ->add('slug')
+            ->add('_action', 'actions', array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'delete' => array(),
+                    'comments' => array(
+                        'template' => ':default:comment_button.html.twig'
+                    )
+                )
+            ))
+        ;
+    }
+```
+
+```
+<a class="btn btn-sm" href="{{ path('admin_app_post_comment_list',  {'id': object.id } ) }}">комментарии</a>
+```
