@@ -89,3 +89,24 @@ class CommentAdmin extends Admin
 ```
 <a class="btn btn-sm" href="{{ path('admin_app_post_comment_list',  {'id': object.id } ) }}">комментарии</a>
 ```
+ Dashboard
+ 
+создание собственного шаблона dashboard
+
+```
+sonata_admin:
+    title: Админка
+    title_logo: /logo_title.png
+    templates:
+        dashboard: :default:my_dashboard.html.twig
+```
+
+```
+{% extends 'SonataAdminBundle:Core:dashboard.html.twig' %}
+
+{% block content %}
+    {{ parent() }}
+
+    <div style="width: 100px; height: 100px; background-color: red" ></div>
+{% endblock %}
+```
