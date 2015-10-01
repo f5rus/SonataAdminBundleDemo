@@ -88,3 +88,5 @@ sonata_block:
 sonata_admin:
     title: Админка
     title_logo: /logo_title.png
+    templates:
+        dashboard: :default:my_dashboard.html.twig
