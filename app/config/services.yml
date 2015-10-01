@@ -9,3 +9,12 @@ services:
         arguments: [~, AppBundle\Entity\Post, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Post }
+
+        calls:
+            - [ addChild, ["@app.admin.comment"]]
+
+    app.admin.comment:
+        class: AppBundle\Admin\CommentAdmin
+        arguments: [~, AppBundle\Entity\Comment, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Comment }

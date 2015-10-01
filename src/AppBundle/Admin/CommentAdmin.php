@@ -3,16 +3,15 @@
 namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Knp\Menu\ItemInterface as MenuItemInterface;
 
-class PostAdmin extends Admin
+class CommentAdmin extends Admin
 {
+    protected $parentAssociationMapping = 'post';
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -20,9 +19,7 @@ class PostAdmin extends Admin
     {
         $datagridMapper
             ->add('id')
-            ->add('title')
             ->add('body')
-            ->add('slug')
         ;
     }
 
@@ -33,17 +30,12 @@ class PostAdmin extends Admin
     {
         $listMapper
             ->add('id')
-            ->add('title')
             ->add('body')
-            ->add('slug')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
-                    'comments' => array(
-                        'template' => ':default:comment_button.html.twig'
-                    )
                 )
             ))
         ;
@@ -55,10 +47,7 @@ class PostAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('title')
             ->add('body')
-            ->add('slug')
-            ->add('author')
         ;
     }
 
@@ -69,14 +58,7 @@ class PostAdmin extends Admin
     {
         $showMapper
             ->add('id')
-            ->add('title')
             ->add('body')
-            ->add('slug')
         ;
-    }
-
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection->add('comments', $this->getRouterIdParameter().'/comments');
     }
 }

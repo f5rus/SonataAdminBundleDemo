@@ -46,7 +46,7 @@ class Post
      * @var
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(name="author", nullable=false, referencedColumnName="id" )
+     * @ORM\JoinColumn(name="author", nullable=false, referencedColumnName="id", nullable=true)
      */
     private $author;
 
