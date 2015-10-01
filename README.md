@@ -1,4 +1,15 @@
-my_project
+SonataAdminBundle - demo website
 ==========
 
-A Symfony project created on October 1, 2015, 4:45 am.
+Documentation
+==========
+
+Configuration
+==========
+
+# app/config/config.yml
+sonata_admin:
+    title:      Acme Demo Bundle
+    title_logo: bundles/acmedemo/img/fancy_acme_logo.png
+
+
